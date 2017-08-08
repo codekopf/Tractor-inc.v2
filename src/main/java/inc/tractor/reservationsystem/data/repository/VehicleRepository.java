@@ -9,7 +9,6 @@ import inc.tractor.reservationsystem.data.entity.Vehicle;
 public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
 
 	Vehicle findByVin(String vin);
-	Vehicle findByLicenceplate(String licenceplate);
 	Vehicle FindByNickname(String nickname);
 	
 }

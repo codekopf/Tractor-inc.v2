@@ -11,21 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import inc.tractor.reservationsystem.business.domain.VehicleReservation;
+import inc.tractor.reservationsystem.data.entity.Client;
+import inc.tractor.reservationsystem.data.entity.Rent;
 import inc.tractor.reservationsystem.data.entity.Vehicle;
 import inc.tractor.reservationsystem.data.repository.ClientRepository;
+import inc.tractor.reservationsystem.data.repository.RentRepository;
 import inc.tractor.reservationsystem.data.repository.VehicleRepository;
 
 @Service
 public class VehicleReservationService {
     private VehicleRepository vehicleRepository;
     private ClientRepository clientRepository;
-    private ReservationRepository reservationRepository;
+    private RentRepository rentRepository;
 
     @Autowired
-    public ReservationService(VehicleRepository vehicleRepository, ClientRepository clientRepository, ReservationRepository reservationRepository) {
+    public void ReservationService(VehicleRepository vehicleRepository, ClientRepository clientRepository, RentRepository rentRepository) {
         this.vehicleRepository = vehicleRepository;
         this.clientRepository = clientRepository;
-        this.reservationRepository = reservationRepository;
+        this.rentRepository = rentRepository;
     }
 
     public List<VehicleReservation> getVehicleReservationsForDate(Date date){
@@ -39,16 +42,16 @@ public class VehicleReservationService {
             vehicleReservationMap.put(vehicle.getId(), vehicleReservation);
         });
         
-        Iterable<Reservation> reservations = this.reservationRepository.findByDate(new java.sql.Date(date.getTime()));
+        Iterable<Rent> reservations = this.rentRepository.findByDate(new java.sql.Date(date.getTime()));
         if(null!=reservations){
             reservations.forEach(reservation -> {
-                Guest guest = this.guestRepository.findOne(reservation.getGuestId());
-                if(null!=guest){
-                    RoomReservation roomReservation = roomReservationMap.get(reservation.getId());
-                    roomReservation.setDate(date);
-                    roomReservation.setFirstName(guest.getFirstName());
-                    roomReservation.setLastName(guest.getLastName());
-                    roomReservation.setGuestId(guest.getId());
+                Client client = this.clientRepository.findOne(reservation.getClientId());
+                if(null!=client){
+                    VehicleReservation vehicleReservation = vehicleReservationMap.get(reservation.getId());
+                    vehicleReservation.setDate(date);
+                    vehicleReservation.setName(client.getName());
+                    vehicleReservation.setSurname(client.getSurname());
+                    vehicleReservation.setClientId(client.getId());
                 }
             });
         }
