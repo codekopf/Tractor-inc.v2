@@ -28,7 +28,8 @@ public class Rent {
 	private Date dateFrom;
 
 	@Column(name = "DATE_TO")
-	private Date dateTo;
+	//private Date dateTo;
+	private Date date;
 
 	@Column(name = "PRICE")
 	private BigDecimal price;
@@ -88,15 +89,15 @@ public class Rent {
 	/**
 	 * @return the dateTo
 	 */
-	public Date getDateTo() {
-		return dateTo;
+	public Date getDate() {
+		return date;
 	}
 
 	/**
 	 * @param dateTo the dateTo to set
 	 */
-	public void setDateTo(final Date dateTo) {
-		this.dateTo = dateTo;
+	public void setDate(final Date date) {
+		this.date = date;
 	}
 
 	/**
