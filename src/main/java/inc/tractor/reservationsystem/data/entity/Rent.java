@@ -35,7 +35,7 @@ public class Rent {
 
 	@JoinColumn(name = "CAR_CLIENT")
 	@ManyToOne
-	private Client carClient;
+	private Client vehicleClient;
 
 	@Column(name = "LATTITUDE")
 	private Integer lattitude;
@@ -114,17 +114,17 @@ public class Rent {
 	}
 
 	/**
-	 * @return the carClient
+	 * @return the vehicleClient
 	 */
-	public Client getCarClient() {
-		return carClient;
+	public Client getVehicleClient() {
+		return vehicleClient;
 	}
 
 	/**
-	 * @param carClient the carClient to set
+	 * @param carClient the vehicleClient to set
 	 */
-	public void setCarClient(final Client carClient) {
-		this.carClient = carClient;
+	public void setVehicleClient(final Client carClient) {
+		this.vehicleClient = carClient;
 	}
 
 	/**

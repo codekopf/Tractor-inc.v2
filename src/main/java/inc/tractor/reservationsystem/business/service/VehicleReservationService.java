@@ -45,12 +45,12 @@ public class VehicleReservationService {
         Iterable<Rent> reservations = this.rentRepository.findByDate(new java.sql.Date(date.getTime()));
         if(null!=reservations){
             reservations.forEach(reservation -> {
-                Client client = this.clientRepository.findOne(reservation.getClientId());
+                Client client = this.clientRepository.findOne(reservation.getVehicleClient().getId());
                 if(null!=client){
                     VehicleReservation vehicleReservation = vehicleReservationMap.get(reservation.getId());
                     vehicleReservation.setDate(date);
-                    vehicleReservation.setName(client.getName());
-                    vehicleReservation.setSurname(client.getSurname());
+                    //vehicleReservation.setName(client.getName());
+                    //vehicleReservation.setSurname(client.getSurname());
                     vehicleReservation.setClientId(client.getId());
                 }
             });
